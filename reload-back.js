@@ -5,30 +5,43 @@
  * http://www.github.com/hehaosen
  */
 
-if(window.localStorage){
-    // 执行localStoreage方法
-}else{
-    // 执行cookie方
+
+/**
+ * 存储当前url
+ */
+
+if ( window.localStorage ) {
+    localStorage.reloadBackUrl += window.location.href + separator;
+} else {
+    // 执行cookie存储
 }
 
 var reloadBack = function () {
 
     // 分隔符
-    var separator = '|-|';
+    var separator = '|||';
 
-    // 存储当前url
-    function saveHref () {
-        if (window.localStorage) {
-            localStorage.reloadBackUrl += window.location.href + separator;
+    /**
+     * 获取已经存储的url
+     * @returns {string|*}
+     */
+
+    function getUrl () {
+        if ( window.localStorage ) {
+            return localStorage.reloadBackUrl;
         } else {
-            // 执行cookie存储
+            // 执行cookie获取
         }
     }
 
-    // 获取已经存储的url
-    function getUrl () {
-        if (window.localStorage) {
-            return localStorage.reloadBackUrl;
+    function goBackUrl ( step ) {
+        step = step ? setp : 0 ;
+
+        var urlBox;
+
+        if ( window.localStorage ) {
+            urlBox = localStorage.reloadBackUrl.split(separator);
+            console.log(urlBox);
         } else {
             // 执行cookie获取
         }
