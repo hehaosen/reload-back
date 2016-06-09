@@ -18,13 +18,15 @@ var __SEPARATOR__ = '|||';
 
 if ( window.localStorage ) {
     localStorage.reloadBackUrl = localStorage.reloadBackUrl ? localStorage.reloadBackUrl : '';
-    localStorage.reloadBackUrl += window.location.href + __SEPARATOR__;
+    if (localStorage.reloadBackUrl.split(__SEPARATOR__)[localStorage.reloadBackUrl.split(__SEPARATOR__).length - 2] != window.location.href) {
+        localStorage.reloadBackUrl += window.location.href + __SEPARATOR__;
+    }
+
 } else {
     // 执行cookie存储
 }
 
 var reloadBack = function () {
-
 
     /**
      * 获取已经存储的url
@@ -41,6 +43,7 @@ var reloadBack = function () {
     goBackUrl();
     console.log(__SEPARATOR__);
     function goBackUrl ( step ) {
+
         step = step ? setp : 0 ;
 
         var urlBox;
