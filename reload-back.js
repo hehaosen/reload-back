@@ -18,6 +18,8 @@ var __SEPARATOR__ = '|||';
 
 if ( window.localStorage ) {
     localStorage.reloadBackUrl = localStorage.reloadBackUrl ? localStorage.reloadBackUrl : '';
+
+    // 当页面刷新时,不记录url地址
     if (localStorage.reloadBackUrl.split(__SEPARATOR__)[localStorage.reloadBackUrl.split(__SEPARATOR__).length - 2] != window.location.href) {
         localStorage.reloadBackUrl += window.location.href + __SEPARATOR__;
     }
@@ -40,21 +42,22 @@ var reloadBack = function () {
             // 执行cookie获取
         }
     }
-    goBackUrl();
-    console.log(__SEPARATOR__);
+
+    /**
+     * 获取回退几页前的url
+     * @param step
+     * @returns {*}
+     */
+
     function goBackUrl ( step ) {
 
-        step = step ? setp : 0 ;
-
-        var urlBox;
+        step = step ? step : 0 ;
 
         if ( window.localStorage ) {
-            urlBox = localStorage.reloadBackUrl.split(__SEPARATOR__);
-            console.log(urlBox);
+            return localStorage.reloadBackUrl.split(__SEPARATOR__)
+                [localStorage.reloadBackUrl.split(__SEPARATOR__).length - 2 - step];
         } else {
             // 执行cookie获取
         }
     }
-
-
 };
