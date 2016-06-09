@@ -60,4 +60,17 @@ var reloadBack = function () {
             // 执行cookie获取
         }
     }
+
+    this.goBack = function ( step ) {
+
+        var hrefUrl = goBackUrl(step);
+
+        if ( hrefUrl ) {
+            window.location.href = hrefUrl;
+        } else {
+            console.error('找不到页面');
+        }
+    }
 };
+
+reloadBack = new reloadBack();
