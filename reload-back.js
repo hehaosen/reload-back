@@ -57,7 +57,8 @@ var reloadBack = function () {
 
     _self.addUrl = function () {
         // 当页面刷新时,不记录url地址
-        if (_self.goBack() != window.location.href) {
+        if (goBackUrl() != window.location.href) {
+            localStorage.reloadBackUrl = localStorage.reloadBackUrl ? localStorage.reloadBackUrl : '';
             localStorage.reloadBackUrl += window.location.href + __SEPARATOR__;
         }
     };
