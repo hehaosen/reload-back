@@ -5,39 +5,22 @@
  * http://www.github.com/hehaosen
  */
 
-
-
-// 分隔符
-
-var __SEPARATOR__ = '|||';
-
-
-/**
- * 存储当前url,用于为以后跳转
- */
-
-if ( window.localStorage ) {
-    localStorage.reloadBackUrl = localStorage.reloadBackUrl ? localStorage.reloadBackUrl : '';
-
-    // 当页面刷新时,不记录url地址
-    if (localStorage.reloadBackUrl.split(__SEPARATOR__)[localStorage.reloadBackUrl.split(__SEPARATOR__).length - 2] != window.location.href) {
-        localStorage.reloadBackUrl += window.location.href + __SEPARATOR__;
-    }
-
-} else {
-    // 执行cookie存储
-}
-
 var reloadBack = function () {
+
+    var _self = this ;
+
+    // 分隔符
+
+    var __SEPARATOR__ = '|||';
 
     /**
      * 获取已经存储的url
      * @returns {string|*}
      */
 
-    function getUrl () {
+    function getUrlTeam () {
         if ( window.localStorage ) {
-            return localStorage.reloadBackUrl;
+            return localStorage.reloadBackUrl ? localStorage.reloadBackUrl : '';
         } else {
             // 执行cookie获取
         }
@@ -53,15 +36,11 @@ var reloadBack = function () {
 
         step = step ? step : 0 ;
 
-        if ( window.localStorage ) {
-            return localStorage.reloadBackUrl.split(__SEPARATOR__)
-                [localStorage.reloadBackUrl.split(__SEPARATOR__).length - 2 - step];
-        } else {
-            // 执行cookie获取
-        }
+        return getUrlTeam().split(__SEPARATOR__)
+            [getUrlTeam().split(__SEPARATOR__).length - 2 - step];
     }
 
-    this.goBack = function ( step ) {
+    _self.goBack = function ( step ) {
 
         var hrefUrl = goBackUrl(step);
 
@@ -70,7 +49,20 @@ var reloadBack = function () {
         } else {
             console.error('找不到页面');
         }
-    }
+    };
+
+    /**
+     * 存储当前url,用于为以后跳转
+     */
+
+    _self.addUrl = function () {
+        // 当页面刷新时,不记录url地址
+        if (_self.goBack() != window.location.href) {
+            localStorage.reloadBackUrl += window.location.href + __SEPARATOR__;
+        }
+    };
+
 };
 
 reloadBack = new reloadBack();
+reloadBack.addUrl();
