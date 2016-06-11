@@ -19,6 +19,7 @@ var reloadBack = function () {
      */
 
     function getUrlTeam () {
+
         if ( window.localStorage ) {
             return localStorage.reloadBackUrl ? localStorage.reloadBackUrl : '';
         } else {
@@ -47,7 +48,7 @@ var reloadBack = function () {
         if ( hrefUrl ) {
             window.location.href = hrefUrl;
         } else {
-            console.error('找不到页面');
+            console.error('无法获取上一级页面');
         }
     };
 
@@ -63,7 +64,12 @@ var reloadBack = function () {
         }
     };
 
-};
+    _self.clearUrl = function () {
+        if ( window.localStorage ) {
+            window.localStorage.removeItem('reloadBackUrl');
+        }
+    }
 
+};
 reloadBack = new reloadBack();
 reloadBack.addUrl();
