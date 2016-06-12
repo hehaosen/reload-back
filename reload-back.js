@@ -33,7 +33,7 @@ var reloadBack = function () {
      * @returns {*}
      */
 
-    function goBackUrl ( step ) {
+    function getBackUrl ( step ) {
 
         step = step ? step : 0 ;
 
@@ -41,9 +41,14 @@ var reloadBack = function () {
             [getUrlTeam().split(__SEPARATOR__).length - 2 - step];
     }
 
+    /**
+     * 返回页面
+     * @param step 不传值时返回上一页
+     */
+
     _self.goBack = function ( step ) {
 
-        var hrefUrl = goBackUrl(step);
+        var hrefUrl = getBackUrl(step);
 
         if ( hrefUrl ) {
             window.location.href = hrefUrl;
@@ -58,18 +63,36 @@ var reloadBack = function () {
 
     _self.addUrl = function () {
         // 当页面刷新时,不记录url地址
-        if (goBackUrl() != window.location.href) {
+        if (getBackUrl() != window.location.href) {
             localStorage.reloadBackUrl = localStorage.reloadBackUrl ? localStorage.reloadBackUrl : '';
             localStorage.reloadBackUrl += window.location.href + __SEPARATOR__;
         }
     };
 
+    /**
+     * 清除url地址
+     */
     _self.clearUrl = function () {
         if ( window.localStorage ) {
             window.localStorage.removeItem('reloadBackUrl');
         }
-    }
+    };
 
+    /**
+     * 监听原生返回,如果是原生返回刷新页面
+     */
+    _self.listenerBack = function () {
+
+        var interEvent  = function () {
+
+            console.log (getBackUrl(-1));
+            if ( getBackUrl(-1) != window.location.href && getBackUrl(-1) != '') {
+                console.log('刷新刷新!!!!');
+            }
+        };
+
+        setInterval(interEvent, 100);
+    };
 };
 reloadBack = new reloadBack();
 reloadBack.addUrl();
