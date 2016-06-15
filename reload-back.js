@@ -21,10 +21,10 @@ var reloadBack = function () {
 
     _self.addUrl = function () {
         // 当页面刷新时,不记录url地址
-        if (__storange__) {
+        if (__storange__)
             window.localStorage.nowUrl = window.location.href;
-        } else {
-            // 执行cookie
+        else {
+            console.log('执行cookie');
         }
     };
 
@@ -34,14 +34,12 @@ var reloadBack = function () {
     _self.listenerBack = function () {
 
         var interEvent  = function () {
-            if (__storange__) {
-                if ( window.localStorage.nowUrl != window.location.href) {
+            if (__storange__){
+                if ( window.localStorage.nowUrl != window.location.href)
                     location.reload();
-                }
-            } else {
-                // 执行cookie
+            }else {
+                console.log('执行cookie');
             }
-
         };
 
         setInterval(interEvent, 100);
